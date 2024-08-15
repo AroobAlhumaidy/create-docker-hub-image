@@ -3,7 +3,7 @@
 ```Dockerfile 
 FROM ubuntu:latest
 ENV DEBIAN_FRONTEND=noninteractive
-
+```
 
 # Install required packages
 RUN apt-get update && \
