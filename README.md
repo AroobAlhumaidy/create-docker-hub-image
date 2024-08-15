@@ -46,3 +46,37 @@ ENTRYPOINT ["sambamba"]
 CMD ["--version"]
 ```
 
+3. Build the Docker Image
+    - Add your dockerhub user instead of alhumaidyaroob
+    - if you have versions, add it instead of latest 
+```sh
+docker build -t alhumaidyaroob/sambamba:latest .
+```
+
+4. Test the Docker Image
+    - Add your dockerhub user instead of alhumaidyaroob
+```sh 
+docker run --rm alhumaidyaroob/sambamba:latest --version
+```
+
+5. Log in to Docker Hub
+    - Before you can push the Docker image to Docker Hub, you need to log in:
+    - Enter your Docker Hub username and password.
+```sh
+docker login
+```
+
+6. Push the Docker Image to Docker Hub
+    - Add your dockerhub user instead of alhumaidyaroob
+```sh
+docker push your_dockerhub_username/sambamba:latest
+```
+
+7. Use the Docker Image
+    - To pull the image:
+```sh
+docker pull your_dockerhub_username/sambamba:latest
+```
+    - To run the image from docker hub: 
+```sh
+docker run --rm -v $(pwd):/data  -w /data
