@@ -23,9 +23,9 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libbz2-dev \
     libssl-dev \
+    ldc \
+    dub \
     && rm -rf /var/lib/apt/lists/*
-
-RUN curl -fsS https://dlang.org/install.sh | bash -s dmd
 
 # Clone the Sambamba repository
 RUN git clone https://github.com/biod/sambamba.git /sambamba
@@ -33,17 +33,18 @@ RUN git clone https://github.com/biod/sambamba.git /sambamba
 # Set the working directory
 WORKDIR /sambamba
 
-# Compile Sambamba
-RUN ./build.sh
+# Compile Sambamba using the Makefile
+RUN make sambamba-ldmd2
 
 # Add Sambamba to PATH
-ENV PATH="/sambamba:$PATH"
+ENV PATH="/sambamba/bin:$PATH"
 
 # Set the entrypoint to Sambamba
 ENTRYPOINT ["sambamba"]
 
 # Default command to display the version
 CMD ["--version"]
+
 ```
 
 3. Build the Docker Image
@@ -80,3 +81,4 @@ docker pull your_dockerhub_username/sambamba:latest
     - To run the image from docker hub: 
 ```sh
 docker run --rm -v $(pwd):/data  -w /data
+```
